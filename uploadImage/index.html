@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file">
+    <button>上传</button>
+    <br>
+    <img id="img">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+    <script>
+        let file = document.querySelector('input[type="file"]');
+        let button = document.querySelector('button');
+        let img = document.getElementById('img');
+        button.addEventListener('click', function () {
+            var formData = new FormData();
+            formData.append('file', file.files[0]);
+            axios.post('http://localhost:3000/uploads', formData).then(function (res) {
+                img.src = res.data.data.imgUrl
+            }).catch(function (err) {
+                console.log(err);
+            });
+        });
+    </script>
+</body>
+</html>
